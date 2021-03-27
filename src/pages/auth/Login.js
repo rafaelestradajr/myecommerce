@@ -4,7 +4,7 @@ import React from 'react';
 const Login=()=>{
     return(
         <div>
-            <p>n</p>
+            <p>Login</p>
         </div>
     );
 };
