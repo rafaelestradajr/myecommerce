@@ -1,7 +1,8 @@
-import * as firebase from 'firebase';
+import  firebase from 'firebase/app';
+import 'firebase/auth';
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
+const config = {
     apiKey: "AIzaSyCmZh3VAKMewdf3GGGtoQJxKInE2rVnojw",
     authDomain: "ecommerce-adac3.firebaseapp.com",
     projectId: "ecommerce-adac3",
@@ -10,9 +11,12 @@ const firebaseConfig = {
     appId: "1:285671945429:web:1d5d87514d1265f9051e5c"
   };
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+  if (!firebase.apps.length){
+    firebase.initializeApp(config);
+  }
+ 
 
   //export
 
   export const auth = firebase.auth();
-  export const googleAuthProvider = new firebase.auth.googleAuthProvider();
+  export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
