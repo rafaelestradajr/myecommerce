@@ -7,10 +7,10 @@ import {toast} from 'react-toastify';
 
 const RegisterComplete = ({history}) => {
   const [email, setEmail] = useState("");
-const [password,setPassword] = useState('')
+const [password,setPassword] = useState('');
 
 useState(() => {
-    console.log.apply(window.localStorage.getItem('emailForRegistration'))
+    setEmail(window.localStorage.getItem('emailForRegistration'));
 },[])
 //props.history
 
@@ -22,18 +22,18 @@ useState(() => {
 
   };
 
-  const CompleteRegistrationForm = () => (
+  const completeRegistrationForm = () => (
 
     <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        className="form-control"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        autoFocus
+      <input type="email"  className="form-control" value={email} disabled /> 
+
+      <input type="password"  className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} 
+      placeholder='Password'
+      autoFocus
       />
+      <br/>
       <button type="submit" className="btn btn-raised">
-        Register
+       Complete Registration
       </button>
     </form>
   );
@@ -42,9 +42,9 @@ useState(() => {
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <h4>Register</h4>
+          <h4>Register Complete</h4>
          
-          {registerForm()}
+          {completeRegistrationForm()}
         </div>
       </div>
     </div>
