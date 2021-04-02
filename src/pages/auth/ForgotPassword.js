@@ -8,32 +8,34 @@ import { useSelector } from "react-redux";
 const ForgotPassword = ({ history }) => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    if (user && user.token) 
+    history.push("/");
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
 
     const config = {
-        url:process.env.REACT_APP_FORGOT_PASSWORD_REDIRECT_URL,
-        
-        
-    
-        handleCodeInApp:true,
-      };
-    await auth.sendPasswordResetEmail(email,config)
-    .then(() =>{
-        setEmail('') 
+      url: process.env.REACT_APP_FORGOT_PASSWORD_REDIRECT,
+
+      handleCodeInApp: true,
+    };
+    await auth
+      .sendPasswordResetEmail(email, config)
+      .then(() => {
+        setEmail("");
         setLoading(false);
-
-    })
-    .catch((error) => {
-        setLoading(false)
-        toast.success(
-            'Check your email for password link'
-        );
-        console.log('ERROR MSG IN forgot password')
-
-    })
+        toast.success("Check your email for password reset link");
+      })
+      .catch((error) => {
+        setLoading(false);
+        toast.error(error.message);
+        console.log("ERROR MSG IN FORGOT PASSWORD", error);
+      });
   };
 
   return (

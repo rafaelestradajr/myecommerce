@@ -18,13 +18,13 @@ const RegisterComplete = ({ history }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // validation
-    if(!email || !password){
-      toast.error('Email and password is required')
+    if (!email || !password) {
+      toast.error("Email and password is required");
       return;
     }
-    
-    if(password.length <6){
-      toast.error('Password must be at least 6 characters long');
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
       return;
     }
 
@@ -33,26 +33,22 @@ const RegisterComplete = ({ history }) => {
         email,
         window.location.href
       );
-      console.log('RESULT',result);
+      console.log("RESULT", result);
       if (result.user.emailVerified) {
         // remove user email from local storage
 
-        window.localStorage.removeItem('emailForRegistration');
-        
+        window.localStorage.removeItem("emailForRegistration");
+
         // get user id token
-        let user = auth.currentUser
+        let user = auth.currentUser;
         await user.updatePassword(password);
-        const idTokenResult = await user.getIdTokenResult()
+        const idTokenResult = await user.getIdTokenResult();
 
         //redux
 
-
         // redirect
-        history.push('/')
-
-
+        history.push("/");
       }
-      
     } catch (error) {
       console.log(error);
       toast.error(error.message);
