@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const createOrUpdateUser = async (authtoken) => {
-  return await axios.post
-  (process.env.REACT_APP_API,
+  return await axios.post (
+    `${process.env.REACT_APP_API}/create-or-update-user`,
      {},
      {
     headers:{
@@ -44,14 +44,21 @@ const Login = ({ history }) => {
       const { user } = result;
       const idTokenResult = await user.getIdTokenResult();
 
-      dispatch({
+      createOrUpdateUser(idTokenResult.token)
+      .then(
+        (res) => console.log('CREATE OR UPDATE RES',res))
+      
+      .catch()
+        
+
+     /* dispatch({
         type: "LOGGED_IN_USER",
         payload: {
           email: user.email,
           token: idTokenResult.token,
         },
       });
-      history.push("/");
+      history.push("/");*/
     } catch (error) {
       console.log(error);
       toast.error(error.message);
